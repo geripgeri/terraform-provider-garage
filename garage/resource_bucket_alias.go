@@ -117,12 +117,8 @@ func resourceBucketAliasCreate(ctx context.Context, d *schema.ResourceData, m in
 		// GLOBAL alias
 		req := p.client.BucketAliasAPI.
 			AddBucketAlias(p.withToken(ctx)).
-			AddBucketAliasRequest(*garage.NewAddBucketAliasRequest(
-				global, // globalAlias
-				"",     // accessKeyId (unused)
-				"",     // localAlias  (unused)
-				bucketID,
-			))
+			BucketAliasEnum(garage.BucketAliasEnumOneOfAsBucketAliasEnum(
+				garage.NewBucketAliasEnumOneOf(bucketID, global)))
 		_, httpResp, err := req.Execute()
 		if err != nil {
 			return createDiagnostics(err, httpResp)
@@ -134,12 +130,8 @@ func resourceBucketAliasCreate(ctx context.Context, d *schema.ResourceData, m in
 		// LOCAL alias
 		req := p.client.BucketAliasAPI.
 			AddBucketAlias(p.withToken(ctx)).
-			AddBucketAliasRequest(*garage.NewAddBucketAliasRequest(
-				"",    // globalAlias (unused)
-				keyID, // accessKeyId
-				local, // localAlias
-				bucketID,
-			))
+			BucketAliasEnum(garage.BucketAliasEnumOneOf1AsBucketAliasEnum(
+				garage.NewBucketAliasEnumOneOf1(keyID, bucketID, local)))
 		_, httpResp, err := req.Execute()
 		if err != nil {
 			return createDiagnostics(err, httpResp)
@@ -244,12 +236,8 @@ func resourceBucketAliasDelete(ctx context.Context, d *schema.ResourceData, m in
 	case "global":
 		_, httpResp, err := p.client.BucketAliasAPI.
 			RemoveBucketAlias(p.withToken(ctx)).
-			RemoveBucketAliasRequest(*garage.NewRemoveBucketAliasRequest(
-				alias, // globalAlias
-				"",    // accessKeyId (unused)
-				"",    // localAlias (unused)
-				bucketID,
-			)).
+			BucketAliasEnum(garage.BucketAliasEnumOneOfAsBucketAliasEnum(
+				garage.NewBucketAliasEnumOneOf(bucketID, alias))).
 			Execute()
 		if err != nil {
 			if httpResp != nil && httpResp.StatusCode == http.StatusNotFound {
@@ -266,12 +254,8 @@ func resourceBucketAliasDelete(ctx context.Context, d *schema.ResourceData, m in
 		}
 		_, httpResp, err := p.client.BucketAliasAPI.
 			RemoveBucketAlias(p.withToken(ctx)).
-			RemoveBucketAliasRequest(*garage.NewRemoveBucketAliasRequest(
-				"",    // globalAlias (unused)
-				keyID, // accessKeyId
-				alias, // localAlias
-				bucketID,
-			)).
+			BucketAliasEnum(garage.BucketAliasEnumOneOf1AsBucketAliasEnum(
+				garage.NewBucketAliasEnumOneOf1(keyID, bucketID, alias))).
 			Execute()
 		if err != nil {
 			if httpResp != nil && httpResp.StatusCode == http.StatusNotFound {
