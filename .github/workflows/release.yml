@@ -30,7 +30,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v8
         with:
           extra_plugins: |
-            conventional-changelog-conventionalcommits@10.4.1
+            conventional-changelog-conventionalcommits@8.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
