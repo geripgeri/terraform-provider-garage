@@ -1,3 +1,6 @@
+// Modified by geripgeri on 2026-11-21.
+// Source: AGPL-3.0 (see LICENSE-code and NOTICE.md).
+
 package garage
 
 import (

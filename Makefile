@@ -1,5 +1,5 @@
 TEST?=$$(go list ./... | grep -v 'vendor')
-NAMESPACE=schwitzd
+NAMESPACE=geripgeri
 NAME=garage
 BINARY=terraform-provider-${NAME}
 VERSION ?= $(shell \

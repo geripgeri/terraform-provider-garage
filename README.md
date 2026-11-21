@@ -35,6 +35,8 @@ This project uses a **dual-license** structure:
 - **Documentation:** Licensed under the [MIT License](./LICENSE).  
   You are free to use, copy, modify, and distribute the documentation with attribution.
 
+This is a modified fork; see [NOTICE.md](./NOTICE.md) for attribution and modification notices.
+
 ## Disclaimer
 
 I do not have any prior experience with the Go programming language. This provider has been rewritten for Garage v2 with the assistance of LLMs, and is intended for experimental or personal use only.
