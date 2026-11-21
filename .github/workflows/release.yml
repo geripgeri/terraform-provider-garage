@@ -5,10 +5,18 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+
+      - name: Require main branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Releases only run from main (.releaserc branches: [main]); got ${{ github.ref }}"
+          exit 1
 
       - name: Import GPG key
         id: import_gpg
@@ -31,6 +39,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+
+      # semantic-release commits/tags locally; refresh the checkout so
+      # GoReleaser sees a clean tree that includes the new tag.
+      - name: Re-checkout after semantic-release
+        if: steps.release.outputs.new_release_published == 'true'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Go
         if: steps.release.outputs.new_release_published == 'true'
