@@ -1,4 +1,4 @@
-module github.com/schwitzd/terraform-provider-garage
+module github.com/geripgeri/terraform-provider-garage
 
 go 1.24.5
 

@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/schwitzd/terraform-provider-garage"
+    "url": "https://github.com/geripgeri/terraform-provider-garage"
   },
   "dependencies": {
     "@semantic-release/changelog": "^6.0.2",
